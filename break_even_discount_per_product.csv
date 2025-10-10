@@ -1,0 +1,16 @@
+product_code,product_name,n_points,slope,intercept,break_even_discount_fraction,break_even_discount_pct,breakeven_reasonable
+P09,Atliq_Body_Milk_Nourishing_Lotion (120ML),100,-20.430769230769226,-1370.0076923076924,-67.05609939759039,-6705.609939759039,False
+P10,Atliq_Cream_Beauty_Bathing_Soap (125GM),100,-83.0525,491.1562500000001,5.913804521236569,591.3804521236569,False
+P03,Atliq_Suflower_Oil (1L),100,1199.9773770491797,-62655.737704918036,52.2140991182621,5221.40991182621,False
+P04,Atliq_Farm_Chakki_Atta (1KG),100,1306.4577777777777,-122369.68888888892,93.66524580460145,9366.524580460145,False
+P01,Atliq_Masoor_Dal (1KG),100,,,,,False
+P02,Atliq_Sonamasuri_Rice (10KG),100,,,,,False
+P05,Atliq_Scrub_Sponge_For_Dishwash,100,,,,,False
+P06,Atliq_Fusion_Container_Set_of_3,100,,,,,False
+P07,Atliq_Curtains,100,,,,,False
+P08,Atliq_Double_Bedsheet_set,100,,,,,False
+P11,Atliq_Doodh_Kesar_Body_Lotion (200ML),100,,,,,False
+P12,Atliq_Lime_Cool_Bathing_Bar (125GM),100,,,,,False
+P13,Atliq_High_Glo_15W_LED_Bulb,100,,,,,False
+P14,Atliq_waterproof_Immersion_Rod,100,,,,,False
+P15,Atliq_Home_Essential_8_Product_Combo,100,,,,,False
