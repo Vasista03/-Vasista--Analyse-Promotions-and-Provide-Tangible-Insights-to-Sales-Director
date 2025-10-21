@@ -162,7 +162,7 @@ def apply_global_filters(df: pd.DataFrame, state: dict) -> pd.DataFrame:
     filter_map = {
         "campaign_id": "campaigns",
         "category": "categories",
-        "product_code": "products",
+        "product_name": "products",
         "promo_type": "promo_types",
         "city": "cities",
     }

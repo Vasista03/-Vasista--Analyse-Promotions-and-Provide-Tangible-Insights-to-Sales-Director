@@ -90,9 +90,9 @@ with col2:
 with col3:
     st.session_state["products"] = st.multiselect(
         "🛍️ Product",
-        options=safe_unique(clean_all.get("product_code", pd.Series())),
+        options=safe_unique(clean_all.get("product_name", pd.Series())),
         default=st.session_state["products"],
-        help="Filter data by product codes.",
+        help="Filter data by product names.",
     )
 
 with col4:
@@ -163,12 +163,12 @@ with right:
 
     # City-scoped dataframe
     scope_df = filtered_clean_all
-   # Apply city filter
+    # Apply city filter
     focus_city = st.session_state.get("selected_city")
     if focus_city and focus_city != "All" and "city" in scope_df.columns:
         scope_df = scope_df[scope_df["city"] == focus_city]
 
- # Apply category filter
+    # Apply category filter
     selected_categories = st.session_state.get("categories", [])
     if selected_categories:
         scope_df = scope_df[scope_df["category"].isin(selected_categories)]
@@ -178,7 +178,9 @@ with right:
     if kpi_focus == "Revenue":
         total_before = scope_df["revenue_before_promo"].sum()
         total_after = scope_df["revenue_after_promo"].sum()
-        ir_percent = ((total_after - total_before) / total_before * 100) if total_before else 0
+        ir_percent = (
+            ((total_after - total_before) / total_before * 100) if total_before else 0
+        )
 
         metric_card("Revenue Before", f"₹{total_before:,.0f}")
         metric_card("Revenue After", f"₹{total_after:,.0f}")
@@ -187,12 +189,16 @@ with right:
     elif kpi_focus == "Units":
         total_units_before = scope_df["quantity_sold (before_promo)"].sum()
         total_units_after = scope_df["quantity_sold (after_promo)"].sum()
-        isu_percent = ((total_units_after - total_units_before) / total_units_before * 100) if total_units_before else 0
+        isu_percent = (
+            ((total_units_after - total_units_before) / total_units_before * 100)
+            if total_units_before
+            else 0
+        )
 
         metric_card("Units Before", f"{total_units_before:,}")
         metric_card("Units After", f"{total_units_after:,}")
         metric_card("Incremental Sold Units %", f"{isu_percent:.1f}%")
-   
+
 # dont touchh
 total_before = scope_df["revenue_before_promo"].sum()
 total_after = scope_df["revenue_after_promo"].sum()
@@ -212,7 +218,7 @@ if "campaigns" in st.session_state and st.session_state["campaigns"]:
     ]
 if "products" in st.session_state and st.session_state["products"]:
     df_filtered = df_filtered[
-        df_filtered["product_code"].isin(st.session_state["products"])
+        df_filtered["product_name"].isin(st.session_state["products"])
     ]
 
 
@@ -300,7 +306,7 @@ st.plotly_chart(fig_kpi, use_container_width=True)
 st.subheader("Treemap View")
 
 if not filtered_clean_all.empty and set(
-    ["campaign_id", "product_code", "promo_type", "incremental_margin%"]
+    ["campaign_id", "product_name", "promo_type", "incremental_margin%"]
 ).issubset(filtered_clean_all.columns):
 
     treemap_df = filtered_clean_all.copy()
@@ -325,7 +331,7 @@ if not filtered_clean_all.empty and set(
     # Build Treemap
     fig_treemap = px.treemap(
         treemap_df,
-        path=["campaign_id", "product_code", "promo_type"],
+        path=["campaign_id", "product_name", "promo_type"],
         values=value_col,
         color="incremental_margin%",
         color_continuous_scale="RdYlGn",
@@ -347,11 +353,12 @@ if not filtered_clean_all.empty and set(
 
 else:
     st.caption(
-        "Required columns missing for Treemap: 'campaign_id', 'product_code', 'promo_type', 'incremental_margin%'."
+        "Required columns missing for Treemap: 'campaign_id', 'product_name', 'promo_type', 'incremental_margin%'."
     )
 
 
-st.caption("""
+st.caption(
+    """
 🧩 **Treemap View — Campaign, Product & Promo Insights**
 
 This chart shows how **Revenue (₹)** is spread across **Campaigns**, **Products**, and **Promo Types**.  
@@ -363,7 +370,8 @@ Colors show **profitability (Incremental Margin %)**:
 
 For example, **Product P14** under **CAMP_SAN_01** is dark green with a **92.14% margin**,  
 meaning it performed very well with the **BOGOF** offer.
-""")
+"""
+)
 
 
 # GEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
@@ -433,4 +441,3 @@ with center:
                 tooltip={"text": "{city}\nQty: {total_quantity_sold}"},
             )
         )
-
