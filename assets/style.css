@@ -1,0 +1,18 @@
+:root{
+--revenue: #2ecc71;
+--margin: #3498db;
+--ir: #f39c12;
+}
+.block-title{font-weight:700;margin:0.5rem 0 0.25rem}
+.kpi-card{padding:0.75rem; border-radius: 10px; border: 1px solid #e0e0e0;background:#fff;}
+.kpi-card.label{font-size:0.8rem;color:#666}
+.kpi-card.value{font-size:1.4rem;font-weight:700}
+.kpi-grid{display:grid; grid-template-columns: repeat (auto-fit, minmax(200px, 1fr)); gap:12px}
+.sidebar-section{padding:8px 0;border-bottom:1px dashed #ccc;margin-bottom:8px}
+.small-help{color:#888;font-size:0.8rem}
+.compare-pill{display:inline-block;padding: 6px 10px; border-radius: 999px;border:1px solid #ddd; margin-left:8px}
+/* Dataframe tweaks */
+[data-testid="stDataFrame"] {border: 1px solid #eee;border-radius:8px}
+/* Dark support */
+body.dark.kpi-card{background:#0e1117; border-color:#222}
+body.dark .block-title{color:#ddd}

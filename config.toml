@@ -1,0 +1,12 @@
+- [theme]
+base = "light"
+primaryColor = "#2ecc71"
+# Revenue green
+secondary BackgroundColor = "#0e1117"
+backgroundColor = "#ffffff"
+- textColor = "#111111"
+- [server]
+maxUploadSize = 200
+headless = true
+[ui]
+hideTopBar = false
