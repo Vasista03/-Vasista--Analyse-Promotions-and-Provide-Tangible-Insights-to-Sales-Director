@@ -40,7 +40,7 @@ clean_all = datasets.get("clean_all", pd.DataFrame())
 
 
 # ------- TOP-LEVEL FILTERS -------
-st.markdown("## 📊 Promotion Performance Dashboard")
+st.markdown("## 📊 Sales Promotion Performance Dashboard")
 
 # Define columns
 col1, col2, col3, col4, col5, col6 = st.columns(6)
@@ -296,8 +296,6 @@ fig_kpi.update_layout(
 )
 
 st.plotly_chart(fig_kpi, use_container_width=True)
-
-
 
 
 # -------------------------------
