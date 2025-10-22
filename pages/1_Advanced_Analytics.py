@@ -141,7 +141,7 @@ else:
         points="all" if show_points else False,  # Show individual points
         color="promo_type",
         color_discrete_sequence=px.colors.qualitative.Pastel,
-        hover_data=["campaign_id", "product_code", "city"],
+        hover_data=["campaign_id", "product_name", "city"],
         title=f"Distribution of {metric} per Promo Type",
     )
 
@@ -284,7 +284,7 @@ else:
     y_label = "Units Sold"
 
 # Ensure columns exist
-required_cols = {"campaign_id", "product_code", before_col, after_col}
+required_cols = {"campaign_id", "product_name", before_col, after_col}
 missing_cols = required_cols - set(filtered_clean_all.columns)
 if missing_cols:
     st.warning(f"Missing columns: {missing_cols}")
@@ -293,7 +293,7 @@ else:
 
     # Melt KPI for Before/After
     df_melt = df_facet.melt(
-        id_vars=["campaign_id", "product_code"],
+        id_vars=["campaign_id", "product_name"],
         value_vars=[before_col, after_col],
         var_name="Period",
         value_name=kpi_option,
@@ -307,7 +307,7 @@ else:
     # Faceted bar chart
     fig_facet = px.bar(
         df_melt,
-        x="product_code",
+        x="product_name",
         y=kpi_option,
         color="Period",
         facet_col="campaign_id",
@@ -315,7 +315,7 @@ else:
         barmode="group",
         height=500,
         hover_data={kpi_option: ":,.0f"},
-        labels={"product_code": "Product", kpi_option: y_label},
+        labels={"product_name": "Product", kpi_option: y_label},
     )
 
     fig_facet.update_layout(
@@ -333,7 +333,7 @@ required_cols = {
     "campaign_id",
     "promo_type",
     "category",
-    "product_code",
+    "product_name",
     "incremental_margin%",
     "revenue_after_promo",
     "total_quantity_sold",
@@ -370,7 +370,7 @@ else:
     )
 
     # Aggregate by hierarchy path
-    path = ["campaign_id", "promo_type", "category", "product_code"]
+    path = ["campaign_id", "promo_type", "category", "product_name"]
     agg = df_sb.groupby(path, as_index=False).agg(
         **{value_col: (value_col, "sum")},
         incremental_margin_pct=("incremental_margin%", "mean"),
@@ -379,9 +379,9 @@ else:
     # Optional: prune to top-N leaf nodes by value (keeps highest contributors)
     if top_n and top_n > 0:
         top_leaves = (
-            agg.groupby("product_code")[value_col].sum().nlargest(top_n).index.tolist()
+            agg.groupby("product_name")[value_col].sum().nlargest(top_n).index.tolist()
         )
-        agg = agg[agg["product_code"].isin(top_leaves)]
+        agg = agg[agg["product_name"].isin(top_leaves)]
 
     # Build sunburst
     fig_sb = px.sunburst(
